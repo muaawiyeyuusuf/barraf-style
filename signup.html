@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CN E-Learning Signup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <style>
+        /* Nav CSS */
+          header {
+      background: rgba(0, 0, 102, 0.9);
+      color: white;
+      padding: 15px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #00CFFF;
+      user-select: none;
+    }
+
+    nav {
+      position: relative;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      user-select: none;
+    }
+
+    nav ul li a:hover {
+      color: #00D2D3;
+    }
+
+      
+      /* Hamburger menu styles */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      width: 25px;
+      height: 20px;
+      justify-content: space-between;
+      user-select: none;
+      z-index: 1100;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+      nav ul {
+        position: fixed;
+        top: 60px;
+        right: 0;
+        background: rgba(0, 0, 102, 0.95);
+        flex-direction: column;
+        width: 220px;
+        padding: 20px;
+        border-radius: 10px 0 0 10px;
+        box-shadow: -4px 0 10px rgba(0, 0, 0, 0.3);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        height: calc(100vh - 60px);
+        overflow-y: auto;
+      }
+
+      nav ul.show {
+        transform: translateX(0);
+      }
+
+      nav ul li {
+        margin: 15px 0;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    /* Hamburger animation when active */
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+        /* When nav is sticky (you can add a class in JS or style on scroll) */
+        /* Example: If you add class 'scrolled' to nav when page scrolls down */
+        nav.scrolled ul li a {
+            color: #0b1d3b !important;
+            /* Dark Blue links */
+        }
+
+        /* For hover and focus in scrolled state */
+        nav.scrolled ul li a:hover,
+        nav.scrolled ul li a:focus {
+            color: #4caf50 !important;
+        }
+
+        /* Body + Form */
+        body {
+            font-family: Arial, sans-serif;
+            background: #2fc7e23d;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background: #30c9f060;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 340px;
+            margin: 100px auto;
+           
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        input {
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1.5px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #00d3d3;
+            color: rgb(7, 4, 51);
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgb(16, 22, 114);
+            color: white;
+        }
+
+        .toggle,
+        .link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .toggle button,
+        .link button {
+            background: none;
+            color: #0077ff;
+            border: none;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+ <header>
+    <div class="logo"> BARRAF STYLE</div>
+    <nav>
+      <div class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" role="button" tabindex="0">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Barraf Style - Store.html">Store</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="cabasho.html">Complaints</a></li>
+        <li><a href="videos.html">Videos</a></li>
+        <li><a href="signup.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+    <div class="container">
+        <h2 id="formTitle">Sign Up</h2>
+
+        <form id="signupForm">
+            <h1 style="margin-top: 5%;margin-left: 23%; font-size: 1rem;">Welcome to Barraf Style</h1>
+            <p style="margin-left: 15%;"></p>
+            <input type="email" id="signupEmail" placeholder="Email" required />
+            <input type="password" id="signupPassword" placeholder="Password" required />
+            <button type="submit">Register</button>
+        </form>
+
+        <form id="loginForm" style="display: none;">
+            <h1 style="margin-top: 5%;margin-left: 33%; font-size: 1rem;">Welcome Back</h1>
+            <input type="email" id="loginEmail" placeholder="Email" required />
+            <input type="password" id="loginPassword" placeholder="Password" required />
+            <button type="submit">Login</button>
+            <div class="link">
+                <button type="button" id="showReset">Forgot password?</button>
+            </div>
+        </form>
+
+        <form id="resetForm" style="display: none;">
+            <input type="email" id="resetEmail" placeholder="Your Email" required />
+            <button type="submit">Reset Password</button>
+            <div class="link">
+                <button type="button" id="backToLogin">Back to Login</button>
+            </div>
+        </form>
+
+        <div class="toggle">
+            <span id="toggleText">Already have an account?</span>
+            <button id="toggleBtn">Login</button>
+        </div>
+
+        <div id="message"></div>
+    </div>
+
+   <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+      menuToggle.classList.toggle('active');
+    });
+
+    // Optional: close menu when clicking a link (for better UX on mobile)
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (navLinks.classList.contains('show')) {
+          navLinks.classList.remove('show');
+          menuToggle.classList.remove('active');
+        }
+      });
+    });
+  </script>
+</body>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+        const supabase = createClient('https://kvhnhawlkdlpbbqdrdfo.supabase.co', 
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2aG5oYXdsa2RscGJicWRyZGZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI0ODYzMTgsImV4cCI6MjA2ODA2MjMxOH0.iZ-LHCqd9kM3EdJdIRRxbN1DBuAPVCmO-y-48ObkMLo')
+
+        const signupForm = document.getElementById('signupForm');
+        const loginForm = document.getElementById('loginForm');
+        const resetForm = document.getElementById('resetForm');
+        const toggleBtn = document.getElementById('toggleBtn');
+        const toggleText = document.getElementById('toggleText');
+        const formTitle = document.getElementById('formTitle');
+        const messageDiv = document.getElementById('message');
+        const showReset = document.getElementById('showReset');
+        const backToLogin = document.getElementById('backToLogin');
+
+
+        // Handle Email Confirm (hash #type=signup)
+        const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        const type = hashParams.get('type');
+        if (type === 'signup') {
+            messageDiv.innerHTML = `<i class="fas fa-check-circle"></i> Email-kaaga waa la xaqiijiyay! Hadda gali account-kaaga.`;
+            messageDiv.className = 'success';
+        }
+
+        // Toggle signup/login forms
+        toggleBtn.onclick = () => {
+            const isSignup = signupForm.style.display !== 'none';
+            signupForm.style.display = isSignup ? 'none' : 'flex';
+            loginForm.style.display = isSignup ? 'flex' : 'none';
+            resetForm.style.display = 'none';
+            formTitle.textContent = isSignup ? 'Login' : 'Sign Up';
+            toggleText.textContent = isSignup ? "Don't have an account?" : 'Already have an account?';
+            toggleBtn.textContent = isSignup ? 'Sign Up' : 'Login';
+            messageDiv.textContent = '';
+            messageDiv.className = '';
+        };
+
+        // Show reset password
+        showReset.onclick = () => {
+            signupForm.style.display = 'none';
+            loginForm.style.display = 'none';
+            resetForm.style.display = 'flex';
+            formTitle.textContent = 'Reset Password';
+            messageDiv.textContent = '';
+            messageDiv.className = '';
+        };
+
+        // Back to login from reset
+        backToLogin.onclick = () => {
+            resetForm.style.display = 'none';
+            loginForm.style.display = 'flex';
+            formTitle.textContent = 'Login';
+            messageDiv.textContent = '';
+            messageDiv.className = '';
+        };
+
+        // Signup
+        signupForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            const { error } = await supabase.auth.signUp({ email, password }, {
+                emailRedirectTo: 'https://muaawiyeyuusuf.github.io/cns242-website/signup.html'
+            });
+
+            if (error) {
+                messageDiv.textContent = error.message;
+                messageDiv.className = 'error';
+            } else {
+                messageDiv.innerHTML = '<i class="fas fa-envelope"></i> Fadlan hubi email-kaaga si aad u xaqiijiso account-ka.';
+                messageDiv.className = 'success';
+                signupForm.reset();
+            }
+        };
+
+        // Login
+        loginForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) {
+                messageDiv.textContent = error.message;
+                messageDiv.className = 'error';
+                return;
+            }
+
+            const user = data.user;
+            if (!user.email_confirmed_at) {
+                messageDiv.textContent = '⚠️ Fadlan xaqiiji email-kaaga.';
+                messageDiv.className = 'error';
+                await supabase.auth.signOut();
+                return;
+            }
+
+            messageDiv.textContent = '✅ Login successful! Redirecting...';
+            messageDiv.className = 'success';
+
+            setTimeout(() => {
+                if (user.email === "taajirkibirsan87@gmail.com") {
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    window.location.href = 'lesson.html';
+                }
+            }, 0);
+        };
+
+        // Reset Password
+        resetForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('resetEmail').value;
+            const { error } = await supabase.auth.resetPasswordForEmail(email);
+            if (error) {
+                messageDiv.textContent = error.message;
+                messageDiv.className = 'error';
+            } else {
+                messageDiv.textContent = '📧 Password reset email sent! Check your inbox.';
+                messageDiv.className = 'success';
+                resetForm.reset();
+            }
+        };
+    </script>
+
+
+</body>
+
+</html>

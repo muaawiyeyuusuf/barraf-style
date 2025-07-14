@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cabasho - CNS242 E-Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #00CFFF;
+            height: 100vh;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+        
+    header {
+      background: rgba(0, 0, 102, 0.9);
+      color: white;
+      padding: 15px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #00CFFF;
+      user-select: none;
+    }
+
+    nav {
+      position: relative;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      user-select: none;
+    }
+
+    nav ul li a:hover {
+      color: #00D2D3;
+    }
+
+      
+      /* Hamburger menu styles */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      width: 25px;
+      height: 20px;
+      justify-content: space-between;
+      user-select: none;
+      z-index: 1100;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+      nav ul {
+        position: fixed;
+        top: 60px;
+        right: 0;
+        background: rgba(0, 0, 102, 0.95);
+        flex-direction: column;
+        width: 220px;
+        padding: 20px;
+        border-radius: 10px 0 0 10px;
+        box-shadow: -4px 0 10px rgba(0, 0, 0, 0.3);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        height: calc(100vh - 60px);
+        overflow-y: auto;
+      }
+
+      nav ul.show {
+        transform: translateX(0);
+      }
+
+      nav ul li {
+        margin: 15px 0;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    /* Hamburger animation when active */
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+        /* When nav is sticky (you can add a class in JS or style on scroll) */
+        /* Example: If you add class 'scrolled' to nav when page scrolls down */
+        nav.scrolled ul li a {
+            color: #0b1d3b !important;
+            /* Dark Blue links */
+        }
+
+        /* For hover and focus in scrolled state */
+        nav.scrolled ul li a:hover,
+        nav.scrolled ul li a:focus {
+            color: #4caf50 !important;
+        }
+
+        /* If you want links dark blue on desktop but keep white on mobile when hamburger is open */
+        /* This is already handled by media queries */
+
+        /* Optional: If you want to override link colors dynamically using JS scroll event */
+        /* Example JS snippet to add/remove 'scrolled' class */
+
+
+        .chat-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            width: 100%;
+            max-width: 900px;
+            padding: 10px;
+            justify-content: center;
+        }
+
+        .center-box {
+            background-color: #00948870;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: none;
+            font-size: 15px;
+            background-color: #fff;
+            color: #0b1d3b;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color:rgba(0, 0, 102, 0.9);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .chat-container {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #2471c923;
+            border-radius: 10px;
+            min-height: 300px;
+            max-height: calc(100vh - 180px);
+            /* si input-container uusan uga baxsan */
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 15px;
+            word-wrap: break-word;
+            margin: 10px 0;
+        }
+
+        .user-message {
+            background-color: #9e0cff;
+            align-self: flex-end;
+            color: #fff;
+            border-bottom-right-radius: 0;
+        }
+
+        .bot-message {
+            background-color: #fff;
+            align-self: flex-start;
+            color: #0b1d3b;
+            border-bottom-left-radius: 0;
+        }
+
+        .input-container {
+            display: none;
+            flex-direction: row;
+            padding: 10px;
+            background-color: #7304a781;
+            border-top: 1px solid #ffffff;
+            align-items: center;
+            gap: 10px;
+            position: sticky;
+            bottom: 0;
+            z-index: 100;
+            justify-content: center;
+        }
+
+
+        textarea {
+            flex: 1;
+            font-size: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            resize: none;
+            height: 40px;
+            background-color: #fff;
+            color: #0b1d3b;
+        }
+
+        .send-btn {
+            background-color: #04aa6d;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .send-btn i {
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+
+
+            .hamburger {
+                display: flex;
+            }
+
+            .chat-wrapper {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <div class="logo"> BARRAF STYLE</div>
+    <nav>
+      <div class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" role="button" tabindex="0">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Barraf Style - Store.html">Store</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="cabasho.html">Complaints</a></li>
+        <li><a href="videos.html">Videos</a></li>
+        <li><a href="signup.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+    <div class="chat-wrapper">
+        <div class="center-box" id="introForm">
+            <h3>Bilow Cabashadaada</h3>
+            <input type="email" id="emailInput" placeholder="Email-kaaga" required />
+            <input type="tel" id="phoneInput" placeholder="Lambarka Taleefanka" required />
+            <button onclick="startChat()">Chat</button>
+        </div>
+
+        <div class="chat-container" id="chatContainer"></div>
+
+        <div class="input-container" id="inputContainer">
+            <textarea id="messageInput" placeholder="Qor cabashadaada..."></textarea>
+            <button class="send-btn" onclick="sendComplaint()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+        const supabase = createClient(
+            'https://kvhnhawlkdlpbbqdrdfo.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2aG5oYXdsa2RscGJicWRyZGZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI0ODYzMTgsImV4cCI6MjA2ODA2MjMxOH0.iZ-LHCqd9kM3EdJdIRRxbN1DBuAPVCmO-y-48ObkMLo'
+        );
+
+        let email = '';
+        let phone = '';
+        const chatContainer = document.getElementById('chatContainer');
+
+        function addMessage(text, type) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${type === 'user' ? 'user-message' : 'bot-message'}`;
+            msgDiv.textContent = text;
+            chatContainer.appendChild(msgDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        window.startChat = () => {
+            const e = document.getElementById('emailInput').value.trim();
+            const p = document.getElementById('phoneInput').value.trim();
+
+            if (!e || !p) return alert('Fadlan buuxi email iyo numberkaaga.');
+
+            email = e;
+            phone = p;
+
+            document.getElementById('introForm').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('inputContainer').style.display = 'flex';
+
+            addMessage("👋 BARRAF STYLE: Salaam! Fadlan nala wadaag cabashadaada si aan kuu caawinno.", "bot");
+        };
+
+        window.sendComplaint = async () => {
+            const message = document.getElementById('messageInput').value.trim();
+            if (!message) return alert('Fadlan qor cabashada.');
+
+            addMessage(message, 'user');
+            document.getElementById('messageInput').value = '';
+
+            const { error } = await supabase
+                .from('complaints')
+                .insert([{ email, phone, message }]);
+
+            if (error) {
+                addMessage("❌ Cabashada lama dirin. Fadlan hubi internet kaga. Isku day mar kale.", "bot");
+            } else {
+                addMessage("✅ Cabashadaada waa la diray. Mahadsanid. Waxaa kula so xeriridona Email ahan", "bot");
+            }
+        };
+    </script>
+
+<script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+      menuToggle.classList.toggle('active');
+    });
+
+    // Optional: close menu when clicking a link (for better UX on mobile)
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (navLinks.classList.contains('show')) {
+          navLinks.classList.remove('show');
+          menuToggle.classList.remove('active');
+        }
+      });
+    });
+  </script>
+</body>
+
+
+</html>

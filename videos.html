@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barraf Style - For You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #000;
+            color: #fff;
+        }
+
+        header {
+    background: rgba(0,0,102,0.9);
+    color: white;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0; z-index: 1000;
+    box-sizing: border-box;
+  }
+  .logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: #00CFFF;
+    user-select: none;
+  }
+  nav { position: relative; }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0; padding: 0;
+  }
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    user-select: none;
+  }
+  nav ul li a:hover {
+    color: #00D2D3;
+  }
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    width: 25px; height: 20px;
+    justify-content: space-between;
+    user-select: none;
+    z-index: 1100;
+  }
+  .menu-toggle span {
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  @media (max-width: 768px) {
+    nav ul {
+      position: fixed;
+      top: 60px;
+      right: 0;
+      background: rgba(0,0,102,0.95);
+      flex-direction: column;
+      width: 220px;
+      padding: 20px;
+      border-radius: 10px 0 0 10px;
+      box-shadow: -4px 0 10px rgba(0,0,0,0.3);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      height: calc(100vh - 60px);
+      overflow-y: auto;
+    }
+    nav ul.show { transform: translateX(0); }
+    nav ul li { margin: 15px 0; }
+    .menu-toggle { display: flex; }
+  }
+  .menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px,5px);
+  }
+  .menu-toggle.active span:nth-child(2) { opacity: 0; }
+  .menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px,-5px);
+  }
+
+        .for-you-label {
+            position: fixed;
+            top: 80px;
+            width: 100%;
+            text-align: center;
+            font-size: 20px;
+            color: #fff;
+            font-weight: 600;
+            z-index: 999;
+            background: linear-gradient(90deg, #A052C2, #00D2D3);
+            padding: 8px 0;
+        }
+
+        .videos-section {
+            margin-top: 140px;
+            height: calc(100vh - 140px);
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        .video-container {
+            position: relative;
+            height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: black;
+            flex-direction: column;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 80px;
+            left: 20px;
+            color: white;
+        }
+
+        .overlay h4 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .overlay p {
+            margin: 5px 0 0;
+            font-size: 14px;
+        }
+
+        .actions {
+            position: absolute;
+            right: 20px;
+            bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 22px;
+            transition: 0.3s;
+        }
+
+        .action-btn:hover {
+            background: #00D2D3;
+        }
+
+        .count {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .comment-box {
+            display: none;
+            position: absolute;
+            bottom: 100px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .comment-box input {
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .comment-box button {
+            padding: 8px 12px;
+            margin-left: 5px;
+            background: #00D2D3;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo"> BARRAF STYLE</div>
+        <nav>
+            <div class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+            <ul id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Barraf Style - Store.html">Store</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="cabasho.html">Complaints</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="signup.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="for-you-label">FOR YOU - BARRAF STYLE</div>
+
+    <div class="videos-section">
+        <div class="video-container">
+            <video src="muqal.mp4" playsinline></video>
+            <div class="overlay">
+                <h4>@barrafstyle</h4>
+                <p>Xayeysiin Cusub oo Barraf Style ah</p>
+            </div>
+            <div class="actions">
+                <button class="action-btn like-btn">❤️</button>
+                <div class="count like-count">0</div>
+                <button class="action-btn comment-btn">💬</button>
+                <div class="count comment-count">0</div>
+                <button class="action-btn">🔖</button>
+            </div>
+            <div class="comment-box">
+                <input type="text" placeholder="Comment...">
+                <button class="submit-comment">Send</button>
+            </div>
+        </div>
+        <div class="video-container">
+            <video src="muqal3.mp4" playsinline></video>
+            <div class="overlay">
+                <h4>@barrafstyle</h4>
+                <p>Dharka Cusub ee barrafstyle</p>
+            </div>
+            <div class="actions">
+                <button class="action-btn like-btn">❤️</button>
+                <div class="count like-count">0</div>
+                <button class="action-btn comment-btn">💬</button>
+                <div class="count comment-count">0</div>
+                <button class="action-btn">🔖</button>
+            </div>
+            <div class="comment-box">
+                <input type="text" placeholder="Comment...">
+                <button class="submit-comment">Send</button>
+            </div>
+        </div>
+    </div>
+    <div class="video-container">
+        <video src="bgvidiow2.mp4" playsinline></video>
+        <div class="overlay">
+            <h4>@barrafstyle</h4>
+            <p>Dharka Cusub ee barrafstyle</p>
+        </div>
+        <div class="actions">
+            <button class="action-btn like-btn">❤️</button>
+            <div class="count like-count">0</div>
+            <button class="action-btn comment-btn">💬</button>
+            <div class="count comment-count">0</div>
+            <button class="action-btn">🔖</button>
+        </div>
+        <div class="comment-box">
+            <input type="text" placeholder="Comment...">
+            <button class="submit-comment">Send</button>
+        </div>
+    </div>
+    </div>
+    <div class="video-container">
+        <video src="bg video5.mp4" playsinline></video>
+        <div class="overlay">
+            <h4>@barrafstyle</h4>
+            <p>Dharka Cusub ee barrafstyle</p>
+        </div>
+        <div class="actions">
+            <button class="action-btn like-btn">❤️</button>
+            <div class="count like-count">0</div>
+            <button class="action-btn comment-btn">💬</button>
+            <div class="count comment-count">0</div>
+            <button class="action-btn">🔖</button>
+        </div>
+        <div class="comment-box">
+            <input type="text" placeholder="Comment...">
+            <button class="submit-comment">Send</button>
+        </div>
+    </div>
+    </div>
+    <div class="video-container">
+        <video src="bg video3.mp4" playsinline></video>
+        <div class="overlay">
+            <h4>@barrafstyle</h4>
+            <p>Dharka Cusub ee barrafstyle</p>
+        </div>
+        <div class="actions">
+            <button class="action-btn like-btn">❤️</button>
+            <div class="count like-count">0</div>
+            <button class="action-btn comment-btn">💬</button>
+            <div class="count comment-count">0</div>
+            <button class="action-btn">🔖</button>
+        </div>
+        <div class="comment-box">
+            <input type="text" placeholder="Comment...">
+            <button class="submit-comment">Send</button>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // / Mobile menu toggle (optional)
+const menuToggle = document.getElementById('menu-toggle');
+const navLinks = document.getElementById('nav-links');
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('show');
+  menuToggle.classList.toggle('active');
+});
+       
+        const videos = document.querySelectorAll('video');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.play();
+                } else {
+                    entry.target.pause();
+                    entry.target.currentTime = 0;
+                }
+            });
+        }, { threshold: 0.8 });
+
+        videos.forEach(video => {
+            observer.observe(video);
+            video.volume = 1;
+        });
+
+        document.querySelectorAll('.like-btn').forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                const count = document.querySelectorAll('.like-count')[index];
+                count.textContent = parseInt(count.textContent) + 1;
+            });
+        });
+
+        document.querySelectorAll('.comment-btn').forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                const box = document.querySelectorAll('.comment-box')[index];
+                box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+            });
+        });
+
+        document.querySelectorAll('.submit-comment').forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                const input = document.querySelectorAll('.comment-box input')[index];
+                if (input.value.trim() !== '') {
+                    const count = document.querySelectorAll('.comment-count')[index];
+                    count.textContent = parseInt(count.textContent) + 1;
+                    input.value = '';
+                    document.querySelectorAll('.comment-box')[index].style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

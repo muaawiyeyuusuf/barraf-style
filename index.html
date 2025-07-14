@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barraf Style - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body,
+    html {
+      height: 100%;
+      overflow: hidden;
+    }
+.slideshow-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  filter: brightness(0.5);
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+/* Video-ga active ee kowaad isla markiiba muuqda */
+.video-container video.active {
+  opacity: 1;
+  transition: none;  /* si aan loo isticmaalin fade */
+}
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: rgba(0, 0, 102, 0.8);
+      color: white;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 999;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #00CFFF;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+    }
+
+    nav ul li {
+      margin-left: 30px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: all 0.3s ease-in-out;
+      position: relative;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background: #00D2D3;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    nav ul li a:hover {
+      color: #00D2D3;
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 60px;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #00CFFF, #A052C2);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      background: #00D2D3;
+      color: white;
+      padding: 15px 40px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #A052C2;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 102, 0.8);
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 14px;
+    }
+
+    /* Responsive Menu */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      background: white;
+      height: 3px;
+      width: 25px;
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    @media(max-width:768px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        right: 50px;
+        background: rgba(0, 0, 102, 0.95);
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      nav ul li {
+        margin: 15px 0;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+<div class="slideshow-container">
+   <img src="bgimg1.png" class="slide active" />
+  <img src="bgim2.png" class="slide active" />
+  <img src="bgim3.png" class="slide" />
+  <img src="bgim4.png" class="slide" />
+</div>
+
+
+  <header>
+    <div class="logo">BARRAF STYLE</div>
+    <nav>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span><span></span><span></span>
+      </div>
+      <ul id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Barraf Style - Store.html">Store</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="cabasho.html">Complaints</a></li>
+        <li><a href="videos.html">Videos</a></li>
+        <li><a href="signup.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to Barraf Style</h1>
+    <p>Jackets, Trousers, Track Suit Men, Masks and Fashion Print</p>
+    <a href="Barraf Style - Store.html" class="btn">Shop Now</a>
+  </section>
+
+  <footer>&copy; 2025 Barraf Style | All Rights Reserved</footer>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      navLinks.classList.toggle('show');
+    });
+
+  </script>
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let currentSlide = 0;
+
+  function showNextSlide() {
+    slides[currentSlide].classList.remove('active');
+
+    currentSlide = (currentSlide + 1) % slides.length;
+
+    slides[currentSlide].classList.add('active');
+  }
+
+  setInterval(showNextSlide, 2000); // 5 seconds loop
+</script>
+
+
+
+</body>
+
+</html>

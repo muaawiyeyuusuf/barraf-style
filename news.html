@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BARRAF STYLE | News</title>
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #A052C2, #00D2D3);
+      color: #333;
+      padding-top: 60px; /* Navbar height */
+    }
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #000066;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+    }
+    .navbar .logo-text {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .navbar .logo-text .barraf {
+      color: #00CFFF;
+    }
+    .navbar .logo-text .style {
+      color: #FFFFFF;
+    }
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      width: 25px;
+      height: 20px;
+      justify-content: space-between;
+    }
+    .hamburger div {
+      height: 3px;
+      background-color: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    /* Menu */
+    .nav-menu {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .nav-menu li a:hover {
+      color: #00D2D3;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+      .nav-menu {
+        position: fixed;
+        top: 60px;
+        right: -100%;
+        background-color: #000066;
+        height: calc(100vh - 60px);
+        width: 200px;
+        flex-direction: column;
+        padding-top: 20px;
+        transition: right 0.3s ease;
+        z-index: 999;
+      }
+      .nav-menu.active {
+        right: 0;
+      }
+      .nav-menu li {
+        margin-bottom: 20px;
+        padding-left: 20px;
+      }
+    }
+    /* Hamburger active animation */
+    .hamburger.active div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active div:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active div:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* News Container */
+    #news-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    /* News Card */
+    .news-card {
+      background: #fff;
+      width: 100%;
+      margin: 15px 0;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .news-card:hover {
+      transform: scale(1.02);
+    }
+    .news-card img.product-image {
+      width: 100%;
+      display: block;
+    }
+    .news-card .card-content {
+      padding: 15px;
+    }
+    .news-card .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    /* Logo Image */
+    .news-card .card-header img.logo {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      margin-right: 10px;
+    }
+    .news-card .card-header .brand-name {
+      font-weight: bold;
+      font-size: 18px;
+      color: #000066;
+    }
+    .news-card h3.product-name {
+      margin: 0 0 8px 0;
+      color: #333;
+    }
+    .news-card p.description {
+      font-size: 14px;
+      color: #555;
+      margin: 0 0 10px 0;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      padding-bottom: 15px;
+    }
+    .buttons button {
+      background: #A052C2;
+      border: none;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s ease;
+      min-width: 90px;
+    }
+    .buttons button:hover {
+      background: #00D2D3;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo-text"><span class="barraf">BARRAF</span> <span class="style">STYLE</span></div>
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Barraf Style - Store.html">Store</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="cabasho.html">Complaints</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="signup.html">Login</a></li>
+    </ul>
+  </nav>
+
+  <section id="news-container">
+    <!-- News cards will be here -->
+  </section>
+
+  <script>
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    // Close menu on link click (optional)
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+      });
+    });
+
+    // Hardcoded posts data
+    const posts = [
+      {
+        id: 1,
+        productName: "Dharka Cusub 2025",
+        image: "https://i.pinimg.com/736x/73/a3/85/73a3850db9739643eb0f1bb74a54c1fd.jpg",
+        logo: "https://i.pinimg.com/736x/c1/e3/eb/c1e3eb089e53b34af9d0bf780a8b6c2b.jpg",
+        desc: "Shar dun ah oo culus oo ad u quruuxbadan.",
+        likes: 0,
+        loves: 0
+      },
+      {
+        id: 2,
+        productName: "Kabaha Xagaaga",
+        image: "https://i.pinimg.com/736x/48/a7/b2/48a7b2ee0baf8274d70c4ab84804488f.jpg",
+        logo: "https://i.pinimg.com/736x/c1/e3/eb/c1e3eb089e53b34af9d0bf780a8b6c2b.jpg",
+        desc: "Iskujoog aad u quruxbadan.",
+        likes: 0,
+        loves: 0
+      },
+      {
+        id: 3,
+        productName: "Muraayadaha Style-ka",
+        image: "https://i.pinimg.com/736x/cc/73/5a/cc735ab9001f61ac9d95d468e7081cad.jpg",
+        logo: "https://i.pinimg.com/736x/c1/e3/eb/c1e3eb089e53b34af9d0bf780a8b6c2b.jpg",
+        desc: "Mask cadan ah oo add u quruxbadan.",
+        likes: 0,
+        loves: 0
+      },
+       {
+        id: 4,
+        productName: "Muraayadaha Style-ka",
+        image: "https://i.pinimg.com/736x/55/f6/63/55f66362c96139e71288112f9abc28f4.jpg",
+        logo: "https://i.pinimg.com/736x/c1/e3/eb/c1e3eb089e53b34af9d0bf780a8b6c2b.jpg",
+        desc: "Shar jilicsan oo model qaboowna ah.",
+        likes: 0,
+        loves: 0
+      },
+       {
+        id: 5,
+        productName: "Muraayadaha Style-ka",
+        image: "https://i.pinimg.com/736x/df/a5/67/dfa56791204c5289a9308de1f9488446.jpg",
+        logo: "https://i.pinimg.com/736x/c1/e3/eb/c1e3eb089e53b34af9d0bf780a8b6c2b.jpg",
+        desc: "Iskujoog aad u quruxbadan.",
+        likes: 0,
+        loves: 0
+      },
+      
+
+      
+
+      
+    ];
+
+    const container = document.getElementById('news-container');
+
+    function renderCards() {
+      container.innerHTML = '';
+      posts.forEach(post => {
+        const card = document.createElement('div');
+        card.className = 'news-card';
+
+        card.innerHTML = `
+          <img src="${post.image}" alt="${post.productName}" class="product-image" />
+          <div class="card-content">
+            <div class="card-header">
+              <img src="${post.logo}" alt="Logo" class="logo" />
+              <div class="brand-name">BARRAF STYLE</div>
+            </div>
+            <h3 class="product-name">${post.productName}</h3>
+            <p class="description">${post.desc}</p>
+            <div class="buttons">
+              <button onclick="like(${post.id})" id="like-${post.id}">❤️ ${post.likes}</button>
+              <button onclick="love(${post.id})" id="love-${post.id}">👎🏼 ${post.loves}</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function like(id) {
+      const post = posts.find(p => p.id === id);
+      post.likes++;
+      document.getElementById(`like-${id}`).innerText = `❤️ ${post.likes}`;
+    }
+
+    function love(id) {
+      const post = posts.find(p => p.id === id);
+      post.loves++;
+      document.getElementById(`love-${id}`).innerText = `👎🏼 ${post.loves}`;
+    }
+
+    // Initial render
+    renderCards();
+  </script>
+
+</body>
+</html>
