@@ -2,302 +2,63 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Barraf Style - Store</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
 <style>
-  body, html {
-    margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: #f4f4f4;
-  }
-  header {
-    background: rgba(0,0,102,0.9);
-    color: white;
-    padding: 15px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    width: 100%;
-    top: 0; z-index: 1000;
-    box-sizing: border-box;
-  }
-  .logo {
-    font-size: 28px;
-    font-weight: 700;
-    color: #00CFFF;
-    user-select: none;
-  }
-  nav { position: relative; }
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-    margin: 0; padding: 0;
-  }
-  nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
-    user-select: none;
-  }
-  nav ul li a:hover {
-    color: #00D2D3;
-  }
-  .menu-toggle {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    width: 25px; height: 20px;
-    justify-content: space-between;
-    user-select: none;
-    z-index: 1100;
-  }
-  .menu-toggle span {
-    height: 3px;
-    background: white;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-  }
-  @media (max-width: 768px) {
-    nav ul {
-      position: fixed;
-      top: 60px;
-      right: 0;
-      background: rgba(0,0,102,0.95);
-      flex-direction: column;
-      width: 220px;
-      padding: 20px;
-      border-radius: 10px 0 0 10px;
-      box-shadow: -4px 0 10px rgba(0,0,0,0.3);
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      height: calc(100vh - 60px);
-      overflow-y: auto;
-    }
-    nav ul.show { transform: translateX(0); }
-    nav ul li { margin: 15px 0; }
-    .menu-toggle { display: flex; }
-  }
-  .menu-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px,5px);
-  }
-  .menu-toggle.active span:nth-child(2) { opacity: 0; }
-  .menu-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px,-5px);
-  }
-
-  .store {
-    margin-top: 120px;
-    padding: 30px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
-
-  .card {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    overflow: hidden;
-    transition: transform 0.3s;
-  }
-  .card:hover { transform: translateY(-5px); }
-
-  .slideshow {
-    position: relative;
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-  }
-
-  .slideshow img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    display: none;
-    position: absolute;
-    top: 0; left: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-  .slideshow img.active {
-    display: block;
-    position: relative;
-    opacity: 1;
-  }
-
-  /* dots container */
-  .dots {
-    text-align: center;
-    padding: 8px 0;
-    background: #f4f4f4;
-  }
-  .dot {
-    height: 10px;
-    width: 10px;
-    margin: 0 5px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .dot.active {
-    background-color: #00D2D3;
-  }
-
-  .card-content {
-    padding: 15px;
-  }
-  .card-content h3 {
-    margin-bottom: 10px;
-    color: #333;
-  }
-  .card-content p {
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-  .add-btn {
-    background: #00D2D3;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  .add-btn:hover {
-    background: #A052C2;
-  }
-  .cart {
-    position: fixed;
-    top: 100px;
-    right: 20px;
-    background: white;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    border-radius: 10px;
-    max-width: 300px;
-  }
-  .cart h4 {
-    margin-bottom: 10px;
-  }
-  .cart-item {
-    margin-bottom: 10px;
-    font-size: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .cart-item button {
-    background: #A052C2;
-    border: none;
-    color: white;
-    border-radius: 20px;
-    cursor: pointer;
-    padding: 2px 8px;
-    font-size: 12px;
-    transition: background 0.3s;
-  }
-  .cart-item button:hover {
-    background: #00D2D3;
-  }
-  .order-btn {
-    background: #00CFFF;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 30px;
-    margin-top: 10px;
-    cursor: pointer;
-  }
-  .order-btn:hover {
-    background: #A052C2;
-  }
-
-  .modal {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  .modal-content {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 400px;
-    box-sizing: border-box;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-  .modal-content h3 { margin-top: 0; }
-  .modal-content input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-  .submit-btn, .cancel-btn {
-    background: #00CFFF;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    width: 48%;
-    font-weight: 600;
-    margin-top: 10px;
-    transition: background 0.3s;
-  }
-  .submit-btn:hover { background: #A052C2; }
-  .cancel-btn {
-    background: #a052c2;
-    margin-left: 4%;
-  }
-  .cancel-btn:hover { background: #00d2d3; }
-  .button-group {
-    display: flex;
-    justify-content: space-between;
-  }
-  .order-cart-list {
-    margin-bottom: 20px;
-    max-height: 150px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 8px;
-    background: #f9f9f9;
-  }
-  .order-cart-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 14px;
-  }
-  .order-cart-item button {
-    background: #A052C2;
-    border: none;
-    color: white;
-    border-radius: 15px;
-    cursor: pointer;
-    padding: 2px 8px;
-    font-size: 12px;
-    transition: background 0.3s;
-  }
-  .order-cart-item button:hover { background: #00D2D3; }
-
+body, html {margin:0; padding:0; font-family:'Poppins', sans-serif; background:#f4f4f4;}
+header {background:rgba(0,0,102,0.9); color:white; padding:15px 50px; display:flex; justify-content:space-between; align-items:center; position:fixed; width:100%; top:0; z-index:1000; box-sizing:border-box;}
+.logo {font-size:28px; font-weight:700; color:#00CFFF; user-select:none;}
+nav {position:relative;}
+nav ul {list-style:none; display:flex; gap:30px; margin:0; padding:0;}
+nav ul li a {color:white; text-decoration:none; font-weight:600; transition:color 0.3s ease; user-select:none;}
+nav ul li a:hover {color:#00D2D3;}
+.menu-toggle {display:none; flex-direction:column; cursor:pointer; width:25px; height:20px; justify-content:space-between; user-select:none; z-index:1100;}
+.menu-toggle span {height:3px; background:white; border-radius:2px; transition:all 0.3s ease;}
+@media(max-width:768px){nav ul{position:fixed; top:60px; right:0; background:rgba(0,0,102,0.95); flex-direction:column; width:220px; padding:20px; border-radius:10px 0 0 10px; box-shadow:-4px 0 10px rgba(0,0,0,0.3); transform:translateX(100%); transition:transform 0.3s ease; height:calc(100vh-60px); overflow-y:auto;} nav ul.show{transform:translateX(0);} nav ul li{margin:15px 0;} .menu-toggle{display:flex;}}
+.menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.menu-toggle.active span:nth-child(2){opacity:0;}
+.menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.store {margin-top:120px; padding:30px; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
+.card {background:white; border-radius:15px; box-shadow:0 4px 8px rgba(0,0,0,0.1); overflow:hidden; transition:transform 0.3s;}
+.card:hover {transform:translateY(-5px);}
+.slideshow {position:relative; width:100%; height:200px; overflow:hidden;}
+.slideshow img {width:100%; height:200px; object-fit:cover; display:none; position:absolute; top:0; left:0; transition:opacity 0.5s ease-in-out;}
+.slideshow img.active {display:block; position:relative; opacity:1;}
+.dots {text-align:center; padding:8px 0; background:#f4f4f4;}
+.dot {height:10px; width:10px; margin:0 5px; background-color:#bbb; border-radius:50%; display:inline-block; cursor:pointer; transition:background-color 0.3s ease;}
+.dot.active {background-color:#00D2D3;}
+.card-content {padding:15px;}
+.card-content h3 {margin-bottom:10px; color:#333;}
+.card-content p {font-size:14px; margin-bottom:10px;}
+.add-btn {background:#00D2D3; color:white; padding:10px 20px; border:none; border-radius:30px; cursor:pointer; transition:0.3s;}
+.add-btn:hover {background:#A052C2;}
+.cart {position:fixed; top:100px; right:20px; background:white; padding:20px; box-shadow:0 4px 8px rgba(0,0,0,0.2); border-radius:10px; max-width:300px;}
+.cart h4 {margin-bottom:10px;}
+.cart-item {margin-bottom:10px; font-size:14px; display:flex; justify-content:space-between; align-items:center;}
+.cart-item button {background:#A052C2; border:none; color:white; border-radius:20px; cursor:pointer; padding:2px 8px; font-size:12px; transition:background 0.3s;}
+.cart-item button:hover {background:#00D2D3;}
+.order-btn {background:#00CFFF; color:white; padding:10px 20px; border:none; border-radius:30px; margin-top:10px; cursor:pointer;}
+.order-btn:hover {background:#A052C2;}
+.modal {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; justify-content:center; align-items:center; z-index:1000;}
+.modal-content {background:white; padding:30px; border-radius:15px; width:90%; max-width:400px; box-sizing:border-box; max-height:90vh; overflow-y:auto;}
+.modal-content h3 {margin-top:0;}
+.modal-content input {width:100%; padding:10px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc; box-sizing:border-box;}
+.submit-btn, .cancel-btn {background:#00CFFF; color:white; padding:10px 20px; border:none; border-radius:30px; cursor:pointer; width:48%; font-weight:600; margin-top:10px; transition:background 0.3s;}
+.submit-btn:hover {background:#A052C2;}
+.cancel-btn {background:#a052c2; margin-left:4%;}
+.cancel-btn:hover {background:#00d2d3;}
+.button-group {display:flex; justify-content:space-between;}
+.order-cart-list {margin-bottom:10px; max-height:200px; overflow-y:auto; border:1px solid #ccc; padding:10px; border-radius:8px; background:#f9f9f9;}
+.order-cart-item {display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px; align-items:center;}
+.order-cart-item button {background:#A052C2; border:none; color:white; border-radius:15px; cursor:pointer; padding:2px 8px; font-size:12px; transition:background 0.3s;}
+.order-cart-item button:hover {background:#00D2D3;}
+.total-price {font-weight:bold; margin-top:10px; text-align:right;}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo"> BARRAF STYLE</div>
+  <div class="logo">BARRAF STYLE</div>
   <nav>
     <div class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" role="button" tabindex="0">
       <span></span><span></span><span></span>
@@ -307,8 +68,7 @@
       <li><a href="Barraf Style - Store.html">Store</a></li>
       <li><a href="news.html">News</a></li>
       <li><a href="cabasho.html">Complaints</a></li>
-      <li><a href="videos.html">Videos</a></li>
-      <li><a href="signup.html">Login</a></li>
+     
     </ul>
   </nav>
 </header>
@@ -325,6 +85,7 @@
   <div class="modal-content">
     <h3>Your Order Items</h3>
     <div class="order-cart-list" id="order-cart-list"></div>
+    <div class="total-price" id="total-price">Total: $0</div>
 
     <h3>Complete Your Order</h3>
     <input type="text" id="first-name" placeholder="First Name" />
@@ -341,9 +102,9 @@
 <script>
 const products = [
   { 
-    name: 'Two-piece set', 
-    price: '37.99$', 
-    images: ['https://i.pinimg.com/736x/af/30/1a/af301a24f9de94da5833ae2f4c94bdeb.jpg', 'https://i.pinimg.com/736x/48/a7/b2/48a7b2ee0baf8274d70c4ab84804488f.jpg', 'https://i.pinimg.com/736x/78/df/9e/78df9e35160c34c085d50e1fe9f114b3.jpg'] 
+    name: 'Sinaiir', 
+    price: '5.70$', 
+    images: ['https://i.pinimg.com/736x/db/be/be/dbbebed76b72958230dcc58f263d15f1.jpg'] 
   },
   { 
     name: 'Thick stylish shirt', 
@@ -351,9 +112,9 @@ const products = [
     images: ['https://i.pinimg.com/736x/73/a3/85/73a3850db9739643eb0f1bb74a54c1fd.jpg', 'https://i.pinimg.com/736x/78/bf/62/78bf62e3056a864d60cacfb422843799.jpg','https://i.pinimg.com/736x/b2/55/02/b25502f149437bf0c24c3a3c44fd7c25.jpg'] 
   },
   { 
-    name: 'Blue matching set', 
-    price: '18.99$', 
-    images: ['https://i.pinimg.com/736x/df/a5/67/dfa56791204c5289a9308de1f9488446.jpg','https://i.pinimg.com/736x/df/a5/67/dfa56791204c5289a9308de1f9488446.jpg','https://i.pinimg.com/736x/df/a5/67/dfa56791204c5289a9308de1f9488446.jpg',] 
+    name: 'Sinaiir', 
+    price: '5.70$', 
+    images: ['https://i.pinimg.com/736x/bc/2e/c5/bc2ec5ed9858de2ed484aad3230852ad.jpg','https://i.pinimg.com/736x/96/06/60/9606600cfbee5a9bb6e941c3018ef746.jpg',] 
   },
   { 
     name: 'Matching set', 
@@ -370,11 +131,7 @@ const products = [
     price: '4.20$', 
     images: ['https://i.pinimg.com/736x/cc/73/5a/cc735ab9001f61ac9d95d468e7081cad.jpg','https://i.pinimg.com/736x/cc/73/5a/cc735ab9001f61ac9d95d468e7081cad.jpg','https://i.pinimg.com/736x/cc/73/5a/cc735ab9001f61ac9d95d468e7081cad.jpg',] 
   },
-  { 
-    name: 'Stylish kids outfit', 
-    price: '25.37$', 
-    images: ['https://i.pinimg.com/736x/8f/d2/ef/8fd2ef9ac914934626db9358fed2a7e7.jpg', 'https://i.pinimg.com/736x/61/96/31/619631aa2035175db70009fc72e24aa4.jpg'] 
-  },
+ 
   { 
     name: 'Ripped jeans', 
     price: '20.89$', 
@@ -385,16 +142,8 @@ const products = [
     price: '7.90$', 
     images: ['https://i.pinimg.com/736x/2b/b1/db/2bb1dbbbb03e12038781f649d4cb112c.jpg','https://i.pinimg.com/1200x/a2/a6/6f/a2a66f763e45a6035bddd1141c174fc6.jpg'] 
   },
-  { 
-    name: 'Fashion scarf', 
-    price: '5.49$', 
-    images: ['https://i.pinimg.com/736x/40/8a/d0/408ad0384a7e81fe3108636cc7cd5327.jpg','https://i.pinimg.com/736x/1d/08/06/1d080680f07d2f9c4e6b80f114a94a19.jpg','https://i.pinimg.com/1200x/d3/4f/b5/d34fb5da7ea35065ba416a323cd91633.jpg'] 
-  },
-   { 
-    name: 'Tupac Headband Style', 
-    price: '4.69$', 
-    images: ['https://i.pinimg.com/1200x/ad/43/21/ad4321a22a68eb0e6c5c1d1ddc0e62cf.jpg','https://i.pinimg.com/1200x/6e/f3/27/6ef3271baca4eabd48579239377707f9.jpg','https://i.pinimg.com/736x/55/ee/10/55ee1090bb5f3370999ddfc2111c5d4c.jpg'] 
-  },
+
+  
    { 
     name: 'Stylish glasses', 
     price: '7.99$', 
@@ -415,21 +164,178 @@ const products = [
     price: '18$', 
     images: ['https://i.pinimg.com/736x/12/a3/b6/12a3b6d34a580cceba6c36eaa4649775.jpg','https://i.pinimg.com/736x/c4/16/bd/c416bd2e864be788922f111c1738dbb0.jpg','https://i.pinimg.com/736x/55/f6/63/55f66362c96139e71288112f9abc28f4.jpg'] 
   },
-   { 
-    name: 'Two-piece set', 
-    price: '20$', 
-    images: ['https://i.pinimg.com/736x/cc/2a/28/cc2a2879144b4e7ea01ae4247ae0e9c5.jpg','https://i.pinimg.com/736x/cc/2a/28/cc2a2879144b4e7ea01ae4247ae0e9c5.jpg','https://i.pinimg.com/736x/cc/2a/28/cc2a2879144b4e7ea01ae4247ae0e9c5.jpg'] 
-  },
+  
      { 
     name: 'Stylish short-sleeve shirt', 
     price: '13$', 
     images: ['https://i.pinimg.com/736x/c9/ed/e4/c9ede48a493a590a95c7221ce6505553.jpg','https://i.pinimg.com/1200x/80/a8/57/80a857d2f7cf71a3db72909f2b38c94f.jpg','https://i.pinimg.com/736x/d6/c6/da/d6c6da835de34557841efe514ae197bc.jpg'] 
   },
+    
      { 
-    name: 'Phone Cover ', 
-    price: '4$',
+    name: ' Gang ring', 
+    price: '2.5$',
     size:   'S,M,L',
-    images: ['https://i.pinimg.com/736x/92/9d/de/929dde7e2d0c15721cbec60462e5cf7a.jpg','https://i.pinimg.com/736x/a6/2d/d9/a62dd9dc252d847674f199968ee337db.jpg','https://i.pinimg.com/736x/36/9d/8e/369d8e29bfff52918d0c2cc625758bf4.jpg',] 
+    images: ['https://i.pinimg.com/736x/76/4b/c1/764bc1f83f751af5d467d3b106774734.jpg',] 
+  },
+     { 
+    name: ' Gang ring', 
+    price: '2.5$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/60/71/59/607159150eaa6f6b631bb97bba63a72c.jpg',] 
+  },
+     { 
+    name: 'CaT-Shirt', 
+    price: '8.5$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/e3/4d/a9/e34da9ceed4bb2b46c03d28489aa7693.jpg',] 
+  },
+     { 
+    name: 'Mens Classic Fit Polo T-Shirt', 
+    price: '14.5$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/32/f1/88/32f188989fe607140fe9fae347473947.jpg',] 
+  },
+     { 
+    name: 'Money gan', 
+    price: '18.77$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/db/bf/39/dbbf39ab0bfb62889eaa8002f4c66837.jpg',] 
+  },
+     { 
+    name: 'Black mask', 
+    price: '4.5$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/44/c0/51/44c0511a654d8bb51f61d48160d862bc.jpg',] 
+  },
+     { 
+    name: 'Sleeve tshirt', 
+    price: '14.9$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/84/57/38/8457388c3f0b1f83d5ae892fe533cf2b.jpg',] 
+  },
+   
+     { 
+    name: 'Sleeve tshirt', 
+    price: '8$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/79/8c/f2/798cf22c4617e6f55ee4a8d15d98cd00.jpg',] 
+  },
+     { 
+    name: 'Mens Linen Shirt Beach', 
+    price: '7.44$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/34/ac/14/34ac145e6447cb2da8527e5e5d64c79f.jpg',] 
+  },
+     { 
+    name: 'Flap pocket', 
+    price: '19.45$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/a4/63/e6/a463e675d3e30b7b61f68ebea760859e.jpg',] 
+  },
+     { 
+    name: 'Black Flap pocket', 
+    price: '19.99$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/60/fe/e3/60fee33e3f85890032eaf9214f34e1ce.jpg',] 
+  },
+     { 
+    name: 'Stars t-shirt', 
+    price: '14.90$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/4e/89/7b/4e897b63af8bb42bcf4fee09624ebb78.jpg',] 
+  },
+   
+     { 
+    name: 'Black charlie t-shirt', 
+    price: '5.7$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/cc/a7/3c/cca73c0eadd1f6da45b5141a4a32db5e.jpg',] 
+  },
+     { 
+    name: 'Moletom de jacekt', 
+    price: '15.77$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/72/91/45/7291452556303e82a81da49bc615f919.jpg',] 
+  },
+     { 
+    name: 'Plus Size Mens Love Heart ', 
+    price: '15$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/1200x/d8/2b/b0/d82bb00cc330056552f5d0b053d78361.jpg','https://i.pinimg.com/736x/92/6b/d7/926bd72526d74ab75b302cb9e1200509.jpg'] 
+  },
+     { 
+    name: 'Black fashion shorts ', 
+    price: '13$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/85/22/8c/85228c84103c700f7321e9cbb6b2a883.jpg',] 
+  },
+   
+     { 
+    name: 'Fish Necklace ', 
+    price: '3.10$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/4e/65/d4/4e65d40848fae61faafd70f1bc5c2dfb.jpg',] 
+  },
+   
+     { 
+    name: 'White t-shirt ', 
+    price: '6.71$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/1d/ca/e1/1dcae142c506942c0d51b7e44c8a37ad.jpg',] 
+  },
+   
+     { 
+    name: 'Fake money ', 
+    price: '8$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/7d/03/01/7d03010e59986007fee04e6d556cd049.jpg',] 
+  },
+   
+     { 
+    name: 'Tattoo Sunscreen Sleeves ', 
+    price: '2.5$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/dc/12/8c/dc128c1613637ebc1ebe746c67a6f255.jpg',] 
+  },
+   
+   
+     { 
+    name: 'Camiseta T-shirt', 
+    price: '7.99$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/05/82/72/0582722cddaebdfdc16afda078ef9565.jpg',] 
+  },
+     { 
+    name: 'Tattoo Sunscreen Sleeves ', 
+    price: '2.5$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/eb/d6/16/ebd61615c6fb39ac6730dcbcd3d64b72.jpg',] 
+  },
+     { 
+    name: 'Short Sleeve Shirt And Drawstring Waist Shorts ', 
+    price: '23$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/b6/b3/b7/b6b3b770753f17b528f0cfe5cde3278f.jpg',] 
+  },
+  
+     { 
+    name: 'Black shorts ', 
+    price: '8.12$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/c5/6f/42/c56f4294691e802ce26aab96166ad4f0.jpg',] 
+  },
+     { 
+    name: '  Mens Casual Solid  ', 
+    price: '10.76$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/7b/6b/4c/7b6b4c8ff68bf43ecbbe3cc0102248db.jpg',] 
+  },
+   
+     { 
+    name: ' White mask ', 
+    price: '4.5$',
+    size:   'S,M,L',
+    images: ['https://i.pinimg.com/736x/91/83/2d/91832d6820dc3e1562c34d6e99218392.jpg',] 
   },
    
 
@@ -439,192 +345,137 @@ const products = [
 const store = document.getElementById('store');
 const cartItems = document.getElementById('cart-items');
 const orderCartList = document.getElementById('order-cart-list');
+const totalPriceElem = document.getElementById('total-price');
 let cart = [];
 
 // Render products
 products.forEach((prod, prodIndex) => {
-  const card = document.createElement('div');
-  card.className = 'card';
+  const card = document.createElement('div'); card.className='card';
 
-  // Create slideshow container
-  const slideshow = document.createElement('div');
-  slideshow.className = 'slideshow';
-
-  // Create img elements for all images, hide except first
-  prod.images.forEach((imgSrc, imgIndex) => {
-    const img = document.createElement('img');
-    img.src = imgSrc;
-    img.alt = prod.name + ' image ' + (imgIndex+1);
-    if(imgIndex === 0) img.classList.add('active');
-    slideshow.appendChild(img);
+  const slideshow = document.createElement('div'); slideshow.className='slideshow';
+  prod.images.forEach((imgSrc, imgIndex)=>{
+    const img=document.createElement('img'); img.src=imgSrc; img.alt=prod.name; if(imgIndex===0) img.classList.add('active'); slideshow.appendChild(img);
   });
-
-  // Create dots container
-  const dots = document.createElement('div');
-  dots.className = 'dots';
-
-  prod.images.forEach((_, dotIndex) => {
-    const dot = document.createElement('span');
-    dot.className = 'dot' + (dotIndex === 0 ? ' active' : '');
-    dot.dataset.prodIndex = prodIndex;
-    dot.dataset.imgIndex = dotIndex;
-    dots.appendChild(dot);
+  const dots = document.createElement('div'); dots.className='dots';
+  prod.images.forEach((_,dotIndex)=>{
+    const dot=document.createElement('span'); dot.className='dot'+(dotIndex===0?' active':''); dot.dataset.prodIndex=prodIndex; dot.dataset.imgIndex=dotIndex; dots.appendChild(dot);
   });
-
   card.appendChild(slideshow);
+  const cardContent = document.createElement('div'); cardContent.className='card-content';
+  cardContent.innerHTML=`<h3>${prod.name}</h3><p>Price: ${prod.price}</p><button class="add-btn">Add to Cart</button>`;
+  card.appendChild(cardContent); card.appendChild(dots); store.appendChild(card);
 
-  // Card content
-  const cardContent = document.createElement('div');
-  cardContent.className = 'card-content';
-  cardContent.innerHTML = `
-    <h3>${prod.name}</h3>
-    <p>Price: ${prod.price}</p>
-    <button class="add-btn">Add to Cart</button>
-  `;
-  card.appendChild(cardContent);
-  card.appendChild(dots);
-  store.appendChild(card);
-
-  // Slide index tracker for each product
-  let currentSlide = 0;
-
-  // Function to show slide and update dots
-  function showSlide(index) {
-    const imgs = slideshow.querySelectorAll('img');
-    const dotElems = dots.querySelectorAll('.dot');
-    if(index >= imgs.length) index = 0;
-    if(index < 0) index = imgs.length -1;
-
-    imgs.forEach((img, i) => {
-      img.classList.toggle('active', i === index);
-    });
-    dotElems.forEach((dot, i) => {
-      dot.classList.toggle('active', i === index);
-    });
-    currentSlide = index;
+  let currentSlide=0;
+  function showSlide(index){
+    const imgs=slideshow.querySelectorAll('img'); const dotElems=dots.querySelectorAll('.dot');
+    if(index>=imgs.length) index=0; if(index<0) index=imgs.length-1;
+    imgs.forEach((img,i)=>img.classList.toggle('active', i===index));
+    dotElems.forEach((dot,i)=>dot.classList.toggle('active', i===index));
+    currentSlide=index;
   }
-
-  // Auto slide every 3 seconds
-  let slideInterval = setInterval(() => {
-    showSlide(currentSlide +1);
-  }, 3000);
-
-  // Dots click event to jump to slide
-  dots.addEventListener('click', (e) => {
-    if(e.target.classList.contains('dot')) {
+  let slideInterval=setInterval(()=>{showSlide(currentSlide+1)},3000);
+  dots.addEventListener('click', (e)=>{
+    if(e.target.classList.contains('dot')){
       clearInterval(slideInterval);
       showSlide(parseInt(e.target.dataset.imgIndex));
-      // restart interval after click
-      slideInterval = setInterval(() => {
-        showSlide(currentSlide +1);
-      }, 3000);
+      slideInterval=setInterval(()=>{showSlide(currentSlide+1)},3000);
     }
   });
 
-  // Add to cart button event
-  cardContent.querySelector('.add-btn').addEventListener('click', () => {
-    // Add product with current slide image url
-    const imgs = slideshow.querySelectorAll('img');
-    const currentImg = imgs[currentSlide].src;
-    cart.push({
-      name: prod.name,
-      price: prod.price,
-      image: currentImg
-    });
+  cardContent.querySelector('.add-btn').addEventListener('click', ()=>{
+    const imgs=slideshow.querySelectorAll('img'); const currentImg=imgs[currentSlide].src;
+    // Check if product exists in cart
+    let found=cart.find(c=>c.name===prod.name);
+    if(found){ found.quantity++; } else { cart.push({name:prod.name, price:prod.price, image:currentImg, quantity:1}); }
     renderCart();
   });
-
 });
 
 // Render cart items in side cart box
-function renderCart() {
-  cartItems.innerHTML = '';
-  cart.forEach((item, index) => {
-    cartItems.innerHTML += `<div class="cart-item">${item.name} - ${item.price}</div>`;
-  });
+function renderCart(){
+  cartItems.innerHTML='';
+  cart.forEach(item=>{cartItems.innerHTML+=`<div class="cart-item">${item.name} - ${item.price} x ${item.quantity}</div>`;});
 }
 
-// Render cart items in modal with remove buttons
-function renderOrderCartList() {
-  orderCartList.innerHTML = '';
-  if(cart.length === 0) {
-    orderCartList.innerHTML = '<p>Your cart is empty.</p>';
-    return;
-  }
-  cart.forEach((item, index) => {
-    const div = document.createElement('div');
-    div.className = 'order-cart-item';
-    div.innerHTML = `
-      <span>${item.name} - ${item.price}</span>
-      <button data-index="${index}">Remove</button>
-    `;
-    div.querySelector('button').addEventListener('click', () => {
-      cart.splice(index, 1);
-      renderOrderCartList();
-      renderCart();
+// Render order cart modal with quantity controls
+function renderOrderCartList(){
+  orderCartList.innerHTML=''; let total=0;
+  if(cart.length===0){ orderCartList.innerHTML='<p>Your cart is empty.</p>'; totalPriceElem.textContent='Total: $0'; return; }
+  cart.forEach((item,index)=>{
+    const priceNum=parseFloat(item.price.replace('$',''));
+    total+=priceNum*item.quantity;
+    const div=document.createElement('div'); div.className='order-cart-item';
+    div.innerHTML=`<span>${item.name} - ${item.price} x ${item.quantity}</span>
+      <div>
+        <button class="add-one">+</button>
+        <button class="remove-one">-</button>
+      </div>`;
+    div.querySelector('.add-one').addEventListener('click', ()=>{
+      item.quantity++; renderOrderCartList(); renderCart();
+    });
+    div.querySelector('.remove-one').addEventListener('click', ()=>{
+      item.quantity--; if(item.quantity<=0) cart.splice(index,1);
+      renderOrderCartList(); renderCart();
     });
     orderCartList.appendChild(div);
   });
+  totalPriceElem.textContent='Total: $'+total.toFixed(2);
 }
 
 // Show order modal
-document.getElementById('order-btn').addEventListener('click', () => {
-  if(cart.length === 0) {
-    alert('Your cart is empty!');
-    return;
-  }
-  renderOrderCartList();
-  document.getElementById('order-modal').style.display = 'flex';
+document.getElementById('order-btn').addEventListener('click', ()=>{
+  if(cart.length===0){ alert('Your cart is empty!'); return; }
+  renderOrderCartList(); document.getElementById('order-modal').style.display='flex';
 });
 
 // Cancel button hides modal
-document.getElementById('cancel-order').addEventListener('click', () => {
-  document.getElementById('order-modal').style.display = 'none';
-});
+document.getElementById('cancel-order').addEventListener('click', ()=>{document.getElementById('order-modal').style.display='none';});
 
-// Submit order handler (WhatsApp message)
-document.getElementById('submit-order').addEventListener('click', () => {
+document.getElementById('submit-order').addEventListener('click', ()=>{
   const fname = document.getElementById('first-name').value.trim();
   const lname = document.getElementById('last-name').value.trim();
   const address = document.getElementById('address').value.trim();
   const email = document.getElementById('email').value.trim();
 
-  if(!fname || !lname || !address || !email) {
+  if(!fname || !lname || !address || !email){
     alert('Fadlan buuxi dhammaan qaybaha foomka.');
     return;
   }
 
-  let orderText = `Asc Barraf Style, waxaan jeclaan lahaa inaan dalbado alaabtan:\n\n`;
-  cart.forEach((item) => {
-    orderText += `• ${item.name} - ${item.price}\nSawirka: ${item.image}\n\n`;
+  // Xisaabi total
+  let total = 0;
+  cart.forEach(item => {
+    total += parseFloat(item.price.replace('$','').replace(',','')) * (item.quantity || 1);
   });
 
-  orderText += `\nMacluumaadkayga:\nMagaca: ${fname} ${lname}\nCinwaanka: ${address}\nEmail: ${email}\nFadlan ii xaqiiji dalabka. Mahadsanid!`;
+  // Diyaari farinta WhatsApp
+  let orderText = `Asc Barraf Style, waxaan jeclaan lahaa inaan dalbado alaabtan:%0A%0A`;
+  cart.forEach(item => {
+    orderText += `• ${item.name} - ${item.price} x ${item.quantity || 1}%0ASawirka: ${item.image}%0A%0A`;
+  });
 
-  const whatsappNumber = '252610773716';
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderText)}`;
-  window.open(whatsappLink, '_blank');
+  orderText += `Totalka: $${total.toFixed(2)}%0A%0A`;
+  orderText += `Macluumaadkayga:%0AMagaca: ${fname} ${lname}%0ACinwaanka: ${address}%0AEmail: ${email}%0AFadlan ii xaqiiji dalabka. Mahadsanid!`;
 
-  // Clear cart and form
+  const whatsappNumber = '+252610773716';
+  const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${orderText}`;
+  window.open(whatsappLink,'_blank');
+
+  // Nadiifi cart iyo foomka
   cart = [];
   renderCart();
   renderOrderCartList();
-
   document.getElementById('first-name').value = '';
   document.getElementById('last-name').value = '';
   document.getElementById('address').value = '';
   document.getElementById('email').value = '';
-
   document.getElementById('order-modal').style.display = 'none';
 });
 
-// Mobile menu toggle (optional)
-const menuToggle = document.getElementById('menu-toggle');
-const navLinks = document.getElementById('nav-links');
-menuToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('show');
-  menuToggle.classList.toggle('active');
-});
+
+// Mobile menu toggle
+const menuToggle=document.getElementById('menu-toggle'); const navLinks=document.getElementById('nav-links');
+menuToggle.addEventListener('click', ()=>{navLinks.classList.toggle('show'); menuToggle.classList.toggle('active');});
 </script>
 </body>
 </html>
