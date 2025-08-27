@@ -78,10 +78,10 @@ nav ul li a:hover {color:#00D2D3;}
   <a href="https://yourwebsite.com/store.html" target="_blank" rel="noopener" style="color:#00CFFF; font-weight:600;">furo boggan browser-kaaga</a>.
 </div>
 
-
 <div class="store" id="store"></div>
+<div class="cart" id="cart"></div>
 
-<div class="cart" id="cart">
+
   <h4>Your Cart</h4>
   <div id="cart-items"></div>
   <button class="order-btn" id="order-btn">Order Now</button>
@@ -485,14 +485,16 @@ window.open(whatsappLink, '_blank');
 const menuToggle=document.getElementById('menu-toggle'); const navLinks=document.getElementById('nav-links');
 menuToggle.addEventListener('click', ()=>{navLinks.classList.toggle('show'); menuToggle.classList.toggle('active');});
 
-function isTikTokBrowser() {
-  const ua = navigator.userAgent || navigator.vendor || window.opera;
-  return /TikTok/i.test(ua);
-}
+ function isTikTokBrowser() {
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    return /TikTok|com\.ss\.android\.ugc\.trill|triller/i.test(ua);
+  }
 
-if(isTikTokBrowser()){
-  document.getElementById('tiktok-warning').style.display = 'block';
-}
+  if(isTikTokBrowser()){
+    document.getElementById('tiktok-warning').style.display = 'block';
+    document.getElementById('store').style.display = 'none';
+    document.getElementById('cart').style.display = 'none';
+  }
 
 </script>
 </body>
