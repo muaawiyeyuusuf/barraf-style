@@ -73,6 +73,12 @@ nav ul li a:hover {color:#00D2D3;}
   </nav>
 </header>
 
+<div id="tiktok-warning" style="display:none; padding:15px; background:#fffae6; border:1px solid #ffd700; border-radius:10px; margin:20px 0; font-size:14px; text-align:center;">
+  Si aad dalabkaaga u dhameystirto, fadlan 
+  <a href="https://yourwebsite.com/store.html" target="_blank" rel="noopener" style="color:#00CFFF; font-weight:600;">furo boggan browser-kaaga</a>.
+</div>
+
+
 <div class="store" id="store"></div>
 
 <div class="cart" id="cart">
@@ -478,6 +484,16 @@ window.open(whatsappLink, '_blank');
 // Mobile menu toggle
 const menuToggle=document.getElementById('menu-toggle'); const navLinks=document.getElementById('nav-links');
 menuToggle.addEventListener('click', ()=>{navLinks.classList.toggle('show'); menuToggle.classList.toggle('active');});
+
+function isTikTokBrowser() {
+  const ua = navigator.userAgent || navigator.vendor || window.opera;
+  return /TikTok/i.test(ua);
+}
+
+if(isTikTokBrowser()){
+  document.getElementById('tiktok-warning').style.display = 'block';
+}
+
 </script>
 </body>
 </html>
