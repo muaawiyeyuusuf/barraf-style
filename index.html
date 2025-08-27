@@ -14,58 +14,38 @@
       font-family: 'Poppins', sans-serif;
     }
 
-    body,
-    html {
-      height: 100%;
-      overflow: hidden;
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      overflow-x: hidden;
     }
-.slideshow-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  overflow: hidden;
-}
 
-.slide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 2s ease-in-out;
-  filter: brightness(0.5);
-}
-
-.slide.active {
-  opacity: 1;
-}
-
-/* Video-ga active ee kowaad isla markiiba muuqda */
-.video-container video.active {
-  opacity: 1;
-  transition: none;  /* si aan loo isticmaalin fade */
-}
-
+    /* Header */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 50px;
-      background: rgba(0, 0, 102, 0.8);
+      padding: 18px 50px;
+      background: rgba(0, 0, 60, 0.6);
+      backdrop-filter: blur(8px);
       color: white;
       position: fixed;
       width: 100%;
       top: 0;
       z-index: 999;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .logo {
       font-size: 28px;
       font-weight: 700;
       color: #00CFFF;
+      letter-spacing: 1px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
     }
 
     nav ul {
@@ -83,6 +63,7 @@
       font-weight: 500;
       transition: all 0.3s ease-in-out;
       position: relative;
+      padding: 5px 0;
     }
 
     nav ul li a::after {
@@ -103,54 +84,6 @@
     nav ul li a:hover {
       color: #00D2D3;
       transform: translateY(-2px);
-    }
-
-    .hero {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      color: white;
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: 60px;
-      margin-bottom: 20px;
-      background: linear-gradient(45deg, #00CFFF, #A052C2);
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      font-size: 20px;
-      margin-bottom: 30px;
-    }
-
-    .btn {
-      background: #00D2D3;
-      color: white;
-      padding: 15px 40px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-size: 18px;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: #A052C2;
-    }
-
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: rgba(0, 0, 102, 0.8);
-      color: white;
-      text-align: center;
-      padding: 10px 0;
-      font-size: 14px;
     }
 
     /* Responsive Menu */
@@ -181,14 +114,14 @@
       transform: rotate(-45deg) translate(5px, -5px);
     }
 
-    @media(max-width:768px) {
+    @media (max-width: 768px) {
       nav ul {
         display: none;
         flex-direction: column;
         position: absolute;
         top: 80px;
         right: 50px;
-        background: rgba(0, 0, 102, 0.95);
+        background: rgba(0, 0, 60, 0.95);
         padding: 20px;
         border-radius: 10px;
       }
@@ -205,20 +138,353 @@
         display: flex;
       }
     }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 0 20px;
+      background: url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+      position: relative;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 60, 0.5);
+    }
+
+    .hero h1 {
+      position: relative;
+      font-size: 60px;
+      background: linear-gradient(45deg, #00CFFF, #A052C2);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+      z-index: 1;
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+
+    .hero p {
+      position: relative;
+      font-size: 20px;
+      margin: 20px 0;
+      z-index: 1;
+    }
+
+    .btn {
+      position: relative;
+      background: linear-gradient(45deg, #00D2D3, #008CBA);
+      color: white;
+      padding: 15px 40px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+      z-index: 1;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .btn:hover {
+      background: linear-gradient(45deg, #A052C2, #6A1B9A);
+      transform: translateY(-3px);
+    }
+
+    /* Store Preview Section */
+    .store-preview {
+      position: relative;
+      padding: 100px 20px;
+      overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1592878849121-f51bbf3f3b8e?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+    }
+
+    .store-preview::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      filter: blur(8px) brightness(0.5);
+      z-index: 0;
+      background: inherit;
+    }
+
+    .store-preview-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      color: white;
+    }
+
+    .store-preview h2 {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 60px;
+    }
+
+    .store-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .store-card {
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .store-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .store-card-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .store-card-content h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .store-card-content p {
+      margin-bottom: 15px;
+      color: #ccc;
+    }
+
+    .store-card-content a {
+      display: block;
+      text-align: center;
+      background: #00D2D3;
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 0;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .store-card-content a:hover {
+      background: #A052C2;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+      color: #ddd;
+      text-align: center;
+      padding: 25px 0;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+ .advanced-footer {
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+  color: #ddd;
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.advanced-footer::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,255,255,0.05), transparent 70%);
+  animation: rotateGradient 10s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotateGradient {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.footer-content {
+  position: relative;
+  z-index: 1;
+}
+
+.footer-logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #00CFFF;
+  margin-bottom: 15px;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.footer-links li a {
+  text-decoration: none;
+  color: #ddd;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  position: relative;
+}
+
+.footer-links li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -3px;
+  left: 0;
+  background: #00CFFF;
+  transition: 0.3s;
+}
+
+.footer-links li a:hover::after {
+  width: 100%;
+}
+
+.footer-links li a:hover {
+  color: #00CFFF;
+}
+
+.advanced-footer p {
+  margin-top: 10px;
+  color: #aaa;
+  font-size: 13px;
+  transition: color 0.3s ease;
+}
+
+.advanced-footer:hover p {
+  color: #fff;
+}
+* Hero Section with Slideshow */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero .slides {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .hero .slides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    .hero .slides img.active {
+      opacity: 1;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 60, 0.5);
+      z-index: 1;
+    }
+
+    .hero h1 {
+      position: relative;
+      font-size: 60px;
+      background: linear-gradient(45deg, #00CFFF, #A052C2);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+      z-index: 2;
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+
+    .hero p {
+      position: relative;
+      font-size: 20px;
+      margin: 20px 0;
+      z-index: 2;
+    }
+
+    .btn {
+      position: relative;
+      background: linear-gradient(45deg, #00D2D3, #008CBA);
+      color: white;
+      padding: 15px 40px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+      z-index: 2;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .btn:hover {
+      background: linear-gradient(45deg, #A052C2, #6A1B9A);
+      transform: translateY(-3px);
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px rgba(0, 207, 255, 0.6), 0 0 20px rgba(160, 82, 194, 0.4);
+      }
+
+      to {
+        text-shadow: 0 0 20px rgba(0, 207, 255, 0.9), 0 0 40px rgba(160, 82, 194, 0.6);
+      }
+    }
   </style>
 </head>
 
 <body>
-
-
-<div class="slideshow-container">
-   <img src="bgimg1.png" class="slide active" />
-  <img src="bgim2.png" class="slide active" />
-  <img src="bgim3.png" class="slide" />
-  <img src="bgim4.png" class="slide" />
-</div>
-
-
+  <!-- Header -->
   <header>
     <div class="logo">BARRAF STYLE</div>
     <nav>
@@ -230,20 +496,78 @@
         <li><a href="Barraf Style - Store.html">Store</a></li>
         <li><a href="news.html">News</a></li>
         <li><a href="cabasho.html">Complaints</a></li>
-        <li><a href="videos.html">Videos</a></li>
-        <li><a href="signup.html">Login</a></li>
       </ul>
     </nav>
   </header>
 
+  <!-- Hero Section -->
   <section class="hero">
+    <div class="slides">
+      <img src="https://i.pinimg.com/736x/08/84/45/088445a0226261abf74e90ff78b89332.jpg" class="active" alt="Slide 1">
+      <img src="https://i.pinimg.com/1200x/ea/fc/d3/eafcd36b33be03699e63ed4ee9144877.jpg" alt="Slide 2">
+      <img src="https://i.pinimg.com/736x/5f/4c/a9/5f4ca9ce62c7a45a2ed2fb4e0299d389.jpg" alt="Slide 3">
+      <img src="https://i.pinimg.com/1200x/e0/62/9e/e0629ea5bf0612de472a0f0a6c2153ee.jpg" alt="Slide 4">
+      <img src="https://i.pinimg.com/736x/bf/e7/52/bfe75249092e7f79f22f053b5bc05f39.jpg" alt="Slide 4">
+    </div>
     <h1>Welcome to Barraf Style</h1>
     <p>Jackets, Trousers, Track Suit Men, Masks and Fashion Print</p>
     <a href="Barraf Style - Store.html" class="btn">Shop Now</a>
   </section>
 
-  <footer>&copy; 2025 Barraf Style | All Rights Reserved</footer>
+  <!-- Store Preview Section -->
+  <section class="store-preview">
+    <div class="store-preview-content">
+      <h2>Featured Products</h2>
+      <div class="store-cards">
+        <div class="store-card">
+          <img src="https://i.pinimg.com/736x/db/be/be/dbbebed76b72958230dcc58f263d15f1.jpg" alt="Product 1">
+          <div class="store-card-content">
+            <h3>Sinaiir</h3>
+            <p>Time: 5:30 PM</p>
+            <a href="Barraf Style - Store.html">Order</a>
+          </div>
+        </div>
+        <div class="store-card">
+          <img src="https://i.pinimg.com/736x/73/a3/85/73a3850db9739643eb0f1bb74a54c1fd.jpg" alt="Product 2">
+          <div class="store-card-content">
+            <h3>Thick Stylish Shirt</h3>
+            <p>Time: 6:00 PM</p>
+            <a href="Barraf Style - Store.html">Order</a>
+          </div>
+        </div>
+        <div class="store-card">
+          <img src="https://i.pinimg.com/736x/57/b0/71/57b071f5a01f92df0312e6db85ed2175.jpg" alt="Product 3">
+          <div class="store-card-content">
+            <h3>Jacket</h3>
+            <p>Time: 7:00 PM</p>
+            <a href="Barraf Style - Store.html">Order</a>
+          </div>
+        </div>
+        <div class="store-card">
+          <img src="https://i.pinimg.com/736x/85/4f/94/854f946e9c998e42dbb2bb5047dbb0d6.jpg" alt="Product 4">
+          <div class="store-card-content">
+            <h3>Mask</h3>
+            <p>Time: 8:00 PM</p>
+            <a href="Barraf Style - Store.html">Order</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<footer class="advanced-footer">
+  <div class="footer-content">
+    <div class="footer-logo">BARRAF STYLE</div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Barraf Style - Store.html">Store</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="cabasho.html">Complaints</a></li>
+    </ul>
+    <p>&copy; 2025 Barraf Style | All Rights Reserved</p>
+  </div>
+</footer>
 
+  <!-- Scripts -->
   <script>
     const menuToggle = document.getElementById('menu-toggle');
     const navLinks = document.getElementById('nav-links');
@@ -252,25 +576,18 @@
       menuToggle.classList.toggle('active');
       navLinks.classList.toggle('show');
     });
+    // Slideshow
+    const slides = document.querySelectorAll('.hero .slides img');
+    let currentSlide = 0;
 
+    function nextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(nextSlide, 2000); // 5 seconds interval
   </script>
-<script>
-  const slides = document.querySelectorAll('.slide');
-  let currentSlide = 0;
-
-  function showNextSlide() {
-    slides[currentSlide].classList.remove('active');
-
-    currentSlide = (currentSlide + 1) % slides.length;
-
-    slides[currentSlide].classList.add('active');
-  }
-
-  setInterval(showNextSlide, 2000); // 5 seconds loop
-</script>
-
-
-
 </body>
 
 </html>
