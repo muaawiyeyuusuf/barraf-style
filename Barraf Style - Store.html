@@ -72,18 +72,27 @@ nav ul li a:hover {color:#00D2D3;}
     </ul>
   </nav>
 </header>
-
-<div id="tiktok-warning" style="display:none; padding:15px; background:#fffae6; border:1px solid #ffd700; border-radius:10px; margin:20px 0; font-size:14px; text-align:center;">
-  Si aad dalabkaaga u dhameystirto, fadlan 
-  <a href="https://yourwebsite.com/store.html" target="_blank" rel="noopener" style="color:#00CFFF; font-weight:600;">furo boggan browser-kaaga</a>.
+<div id="tiktok-popup" 
+     style="display:none; position:fixed; top:0; left:0; 
+            width:100%; height:100%; background:rgba(0,0,0,0.6); 
+            align-items:center; justify-content:center; z-index:9999;">
+  <div style="background:#fff; padding:20px; border-radius:12px; text-align:center; max-width:300px;">
+    <p style="margin-bottom:15px; font-size:16px; font-weight:500;">
+      Si aad dalabkaaga u dhameystirto, fadlan fur boggan browser-kaaga.
+    </p>
+    <a href="https://yourwebsite.com/store.html" 
+       target="_blank" rel="noopener"
+       style="display:inline-block; padding:10px 20px; 
+              background:#00CFFF; color:#fff; border-radius:8px; 
+              text-decoration:none; font-weight:600;">
+      Furo Bogga
+    </a>
+  </div>
 </div>
 
+
+<!-- Store & Cart -->
 <div class="store" id="store"></div>
-<div class="cart" id="cart"></div>
-
-
-<div class="store" id="store"></div>
-
 <div class="cart" id="cart">
   <h4>Your Cart</h4>
   <div id="cart-items"></div>
@@ -488,16 +497,22 @@ window.open(whatsappLink, '_blank');
 const menuToggle=document.getElementById('menu-toggle'); const navLinks=document.getElementById('nav-links');
 menuToggle.addEventListener('click', ()=>{navLinks.classList.toggle('show'); menuToggle.classList.toggle('active');});
 
- function isTikTokBrowser() {
-    const ua = navigator.userAgent || navigator.vendor || window.opera;
-    return /TikTok|com\.ss\.android\.ugc\.trill|triller/i.test(ua);
-  }
+function isTikTokBrowser() {
+  const ua = navigator.userAgent.toLowerCase();
+  console.log("UserAgent:", ua);
+  return ua.includes("tiktok");
+}
 
-  if(isTikTokBrowser()){
-    document.getElementById('tiktok-warning').style.display = 'block';
+window.addEventListener("DOMContentLoaded", function() {
+  if (isTikTokBrowser()) {
+    console.log("✅ Waa TikTok browser");
+    document.getElementById('tiktok-popup').style.display = 'flex';
     document.getElementById('store').style.display = 'none';
     document.getElementById('cart').style.display = 'none';
+  } else {
+    console.log("❌ Ma aha TikTok browser");
   }
+});
 
 </script>
 </body>
