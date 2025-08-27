@@ -449,17 +449,19 @@ document.getElementById('submit-order').addEventListener('click', ()=>{
   });
 
   // Diyaari farinta WhatsApp
-  let orderText = `Asc Barraf Style, waxaan jeclaan lahaa inaan dalbado alaabtan:%0A%0A`;
-  cart.forEach(item => {
-    orderText += `• ${item.name} - ${item.price} x ${item.quantity || 1}%0ASawirka: ${item.image}%0A%0A`;
-  });
+  // Diyaari farinta WhatsApp
+let orderText = `Asc Barraf Style, waxaan jeclaan lahaa inaan dalbado alaabtan:\n\n`;
+cart.forEach(item => {
+  orderText += `• ${item.name} - ${item.price} x ${item.quantity || 1}\nSawirka: ${item.image}\n\n`;
+});
 
-  orderText += `Totalka: $${total.toFixed(2)}%0A%0A`;
-  orderText += `Macluumaadkayga:%0AMagaca: ${fname} ${lname}%0ACinwaanka: ${address}%0AEmail: ${email}%0AFadlan ii xaqiiji dalabka. Mahadsanid!`;
+orderText += `Totalka: $${total.toFixed(2)}\n\n`;
+orderText += `Macluumaadkayga:\nMagaca: ${fname} ${lname}\nCinwaanka: ${address}\nEmail: ${email}\nFadlan ii xaqiiji dalabka. Mahadsanid!`;
 
-  const whatsappNumber = '+252610773716';
-  const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${orderText}`;
-  window.open(whatsappLink,'_blank');
+const whatsappNumber = '252610773716';
+const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderText)}`;
+window.open(whatsappLink, '_blank');
+
 
   // Nadiifi cart iyo foomka
   cart = [];
